@@ -1,6 +1,17 @@
 name: Build and Test app
 on: [push, pull_request]
 jobs:
+  publish:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Publish to CocoaPod register
+      env:
+        COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+      run: |
+        pod trunk push Stytch_framework/Stytch.podspec
+        
   build:
     runs-on: macos-latest
     env:
